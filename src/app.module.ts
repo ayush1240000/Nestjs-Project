@@ -7,8 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { user } from './users/entities/user.entity'; 
 import { Employee } from './employee/entities/employee.entity';
 import { Customer } from './customers/entities/customer.entity';
-import { AuthController } from './auth/auth.controller';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,8 +19,8 @@ import { AuthModule } from './auth/auth.module';
       database: 'new_schema',
       entities: [user, Customer,Employee],  
       synchronize: true, 
-    }),UsersModule, CustomersModule,EmployeeModule, AuthModule],
-  controllers: [AuthController],
+    }),UsersModule, CustomersModule,EmployeeModule, ],
+  controllers: [],
   providers: [],
 })
 export class AppModule implements NestModule {
