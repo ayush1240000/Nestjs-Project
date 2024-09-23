@@ -32,7 +32,6 @@ export class InitialMigration1726657694792 implements MigrationInterface {
             CREATE TABLE \`employee\` (
                 \`employeeId\` CHAR(36) PRIMARY KEY,
                 \`userId\` CHAR(36) NOT NULL,
-                
                 \`deletedAt\` TIMESTAMP NULL,
                 \`createdAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 \`updatedAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
