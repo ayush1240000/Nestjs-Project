@@ -5,11 +5,10 @@ export class CreateDinnertableDto {
   @IsEnum(TableStatus)
   status: TableStatus;
 
-  @IsOptional()
   @IsNumber()
-  customerId?: number; // Optional because the table can initially be vacant
+  customerId: number; // Optional because the table can initially be vacant
 
-  @IsOptional()
+ 
   @IsNumber()
-  employeeId?: number; // Optional, as there may not always be an employee assigned to a table
+  employeeId: number; // Optional, as there may not always be an employee assigned to a table
 }

@@ -73,10 +73,12 @@ export class OrdermenuService {
     return await this.orderMenuRepository.save(orderMenu);
   }
 
-  async findMenuForUserOrder(orderid: number): Promise<OrderMenu[]> {
+  async findUserOrderforOrderid(orderid: number): Promise<OrderMenu[]> {
     // Assuming that menu orders have a relation to user orders
     return this.orderMenuRepository.find({  where: { orderid } }); 
   }
+
+ 
 
   async findMenuOrdersByCustomer(customerId: number): Promise<OrderMenu[]> {
     const userOrders = await this.userOrderRepository.find({

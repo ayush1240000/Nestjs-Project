@@ -1,1 +1,36 @@
-export class CreateBillDto {}
+// import { IsEnum, IsInt, IsNumber, IsOptional } from 'class-validator';
+
+// export class CreateBillDto {
+//   @IsInt()
+//   customerId: number;
+
+//   @IsInt()
+//   @IsOptional()
+//   employeeId: number;
+
+//   @IsInt()
+//   @IsOptional()
+//   tableno: number;
+
+//   @IsNumber()
+//   amount: number;
+
+//   @IsEnum(['Cash', 'OnlinePayment'])
+//   payment: 'Cash' | 'OnlinePayment';
+// }
+
+
+import { IsNumber, IsOptional } from 'class-validator';
+
+export class CreateBillDto {
+  @IsNumber()
+  customerId: number;
+
+  @IsOptional()
+  @IsNumber()
+  employeeId?: number;
+
+  @IsOptional()
+  @IsNumber()
+  tableno?: number;
+}

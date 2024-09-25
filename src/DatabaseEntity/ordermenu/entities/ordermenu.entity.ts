@@ -17,6 +17,9 @@ export class OrderMenu {
 
   @Column()
   orderid: number;
+  T
+  @Column()
+  menuid: number;
 
   @Column()
   quantity: number;

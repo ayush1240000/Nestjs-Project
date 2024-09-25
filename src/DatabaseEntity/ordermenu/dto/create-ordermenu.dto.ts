@@ -7,7 +7,7 @@ export class CreateOrdermenuDto {
 
   @IsInt()
   @IsNotEmpty()
-  menuId: number;
+  menuid: number;
 
   @IsInt()
   @IsNotEmpty()

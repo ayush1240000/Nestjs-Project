@@ -12,7 +12,7 @@ import { AuthController } from './auth.controller';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: 'your_jwt_secret_key', 
-      signOptions: { expiresIn: '60000s' }, 
+      signOptions: { expiresIn: '60s' }, 
     }),
     UsersModule,
   ],

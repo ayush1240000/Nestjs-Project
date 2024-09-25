@@ -23,10 +23,13 @@ export class OrdermenuController {
     return this.ordermenuService.findMenuOrdersByCustomer(customerId);
   }
   
+
   @Get('userorder/:orderid') // Route to get menu items for a specific user order
-  async findMenuForUserOrder(@Param('orderid') orderid: number): Promise<OrderMenu[]> {
-    return this.ordermenuService.findMenuForUserOrder(orderid);
+  async findUserOrderforOrderid(@Param('orderid') orderid: number): Promise<OrderMenu[]> {
+    return this.ordermenuService.findUserOrderforOrderid(orderid);
   }
+
+ 
 
   @Get(':id')
   findOne(@Param('id') id: string) {

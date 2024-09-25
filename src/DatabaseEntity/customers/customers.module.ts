@@ -12,6 +12,7 @@ UsersModule],
 
   controllers: [CustomersController],
   providers: [CustomersService,TransactionService],
+  exports :[TypeOrmModule]
 
 })
 export class CustomersModule {}

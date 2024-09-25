@@ -88,9 +88,20 @@ export class usersService {
     });
   }
 
-  async findAll(): Promise<user[]> {
-    return await this.userRepository.find(); // No transaction needed for read-only operation
+  async findAll(page: number = 1, limit: number = 10): Promise<{ data: user[], total: number, page: number, limit: number }> {
+    const [result, total] = await this.userRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    return {
+      data: result,
+      total,
+      page,
+      limit,
+    };
   }
+
 
   async findOne(id: number): Promise<user> {
     const entity = await this.userRepository.findOne({ where: { userId: id } });

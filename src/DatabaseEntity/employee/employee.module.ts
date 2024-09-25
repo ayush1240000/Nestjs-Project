@@ -11,5 +11,6 @@ import { user } from '../users/entities/user.entity';
   UsersModule],
   controllers: [EmployeeController],
   providers: [EmployeeService],
+  exports :[TypeOrmModule]
 })
 export class EmployeeModule {}

@@ -20,11 +20,12 @@ export class DinnerTable {
   })
   status: TableStatus;
 
-  @OneToOne(() => Customer, customer => customer.customerId, { onDelete: 'SET NULL' })
+  
+  @OneToOne(() => Customer, customer => customer.customerId, )
   @JoinColumn({ name: 'customerId' })
   customer: Customer;
 
-  @ManyToOne(() => Employee, employee => employee.dinnerTables, { onDelete: 'SET NULL' })
+  @ManyToOne(() => Employee, employee => employee.dinnerTables,)
   @JoinColumn({ name: 'employeeId' })
   employee: Employee
 
@@ -33,6 +34,14 @@ export class DinnerTable {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @Column()
+  customerId: number;
+
+  @Column()
+  employeeId: number;
+
+
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
