@@ -7,8 +7,8 @@ export const AppDataSource = new DataSource({
   port: 3306,
   username: 'root',
   password: 'Ayush@1240',
-  database: 'new_schema12',
-  "entities": ["src/**/*.entity.ts"],
+  database: 'new_schema',
+  "entities": ["src/**/**/*.entity.ts"],
   migrations: ['src/migration/*.ts'],
   synchronize: true,
 });
