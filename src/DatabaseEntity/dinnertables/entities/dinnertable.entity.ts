@@ -29,7 +29,7 @@ export class DinnerTable {
   @JoinColumn({ name: 'employeeId' })
   employee: Employee
 
-  @OneToMany(() => Bill, bill => bill.dinnerTable)
+  @OneToMany(() => Bill, bill => bill)
   bills: Bill[]
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

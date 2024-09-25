@@ -20,17 +20,31 @@
 // }
 
 
-import { IsNumber, IsOptional } from 'class-validator';
+// import { IsNumber, IsOptional } from 'class-validator';
+
+// export class CreateBillDto {
+//   @IsNumber()
+//   customerId: number;
+
+//   @IsOptional()
+//   @IsNumber()
+//   employeeId?: number;
+
+//   @IsOptional()
+//   @IsNumber()
+//   tableno?: number;
+// }
+
+
+// src/DatabaseEntity/bills/dto/create-bill.dto.ts
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateBillDto {
+  @IsNotEmpty()
   @IsNumber()
-  customerId: number;
+  customerId: number; // Customer ID to fetch orders and create the bill
 
-  @IsOptional()
-  @IsNumber()
-  employeeId?: number;
 
-  @IsOptional()
-  @IsNumber()
-  tableno?: number;
+
+
 }
