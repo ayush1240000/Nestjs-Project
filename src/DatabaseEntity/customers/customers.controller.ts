@@ -1,7 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { Role } from 'src/authroization/roles.decorator';
+import { Roles } from 'src/authroization/roles.enum';
+import { JwtAuthGuard } from 'src/authentication/jwt-auth.guard';
+import { RolesGuard } from 'src/authroization/roles.guard';
 
 @Controller('customers')
 export class CustomersController {
@@ -13,9 +17,12 @@ export class CustomersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Role(Roles.Customer)
   findAll() {
     return this.customersService.findAll();
   }
+  
   @Get('users')
   findInfoUsersJoim() {
     return this.customersService.findInfoUsersJoim();

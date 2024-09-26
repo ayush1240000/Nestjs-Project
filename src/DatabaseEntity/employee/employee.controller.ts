@@ -3,12 +3,16 @@ import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { JwtAuthGuard } from '../../authentication/jwt-auth.guard';
+import { Roles } from 'src/authroization/roles.enum';
+import { RolesGuard } from 'src/authroization/roles.guard';
+import { Role } from 'src/authroization/roles.decorator';
 
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
-  @Post()
+  @Role(Roles.Admin)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeeService.create(createEmployeeDto);
   }

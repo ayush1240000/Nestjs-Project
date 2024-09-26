@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { UsersModule } from '../DatabaseEntity/users/users.module'; // Ensure this path is correct
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './JwtStrategy';
@@ -12,7 +12,7 @@ import { AuthController } from './auth.controller';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: 'your_jwt_secret_key', 
-      signOptions: { expiresIn: '60s' }, 
+      signOptions: { expiresIn: '6000s' }, 
     }),
     UsersModule,
   ],

@@ -29,7 +29,7 @@ import { TransactionService } from './Transaction/Transaction.service';
       port: 3306,
       username: 'root',
       password: 'Ayush@1240',
-      database: 'new_schema',
+      database: 'finaldb',
       entities: [user, Customer,Employee,Menu,OrderMenu,UserOrder,DinnerTable,Bill],  
       synchronize: true, 
     }),UsersModule, CustomersModule,EmployeeModule,AuthModule, MenusModule, UserorderModule, OrdermenuModule, DinnertablesModule, BillsModule ],
