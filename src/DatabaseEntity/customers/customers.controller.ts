@@ -17,8 +17,7 @@ export class CustomersController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard,RolesGuard)
-  @Role(Roles.Customer)
+
   findAll() {
     return this.customersService.findAll();
   }

@@ -12,4 +12,5 @@ export class BillsController {
   async create(@Body() createBillDto: CreateBillDto): Promise<Bill> {
     return this.billsService.createBill(createBillDto);
   }
+  
 }
