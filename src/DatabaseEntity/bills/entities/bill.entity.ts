@@ -172,6 +172,7 @@
 import { Customer } from 'src/DatabaseEntity/customers/entities/customer.entity';
 import { DinnerTable } from 'src/DatabaseEntity/dinnertables/entities/dinnertable.entity';
 import { Employee } from 'src/DatabaseEntity/employee/entities/employee.entity';
+import { Order } from 'src/DatabaseEntity/order/entities/order.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -181,13 +182,15 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 
 
-@Entity()
+@Entity('bill')
 export class Bill {
   @PrimaryGeneratedColumn()
   billId: number;
+ 
 
   @ManyToOne(() => Customer, (customer) => customer.bills, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'customerId' }) // Joins the `customerId` column
@@ -198,8 +201,12 @@ export class Bill {
   employee: Employee;
 
   @ManyToOne(() => DinnerTable, (dinnerTable) => dinnerTable.bills, { nullable: true, onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'tableno' }) // Joins the `tableNo` column
+  @JoinColumn({ name: 'tableNo' }) // Joins the `tableNo` column
   tableno: DinnerTable;
+
+  @OneToOne(() => Order, (order) => order.bill, { nullable: false }) 
+  @JoinColumn({ name: 'orderId' })
+  order: Order;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   amount: number;

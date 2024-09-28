@@ -3,8 +3,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Bill } from "./entities/bill.entity";
-import { UserOrder } from "../userorder/entities/userorder.entity";
-import { OrderMenu } from "../ordermenu/entities/ordermenu.entity";
+import { Order } from "../order/entities/order.entity";
+import { orderitem } from "../orderitem/entities/orderitem.entity";
 import { Menu } from "../menus/entities/menu.entity";
 import { CreateBillDto } from "./dto/create-bill.dto";
 
@@ -15,68 +15,69 @@ export class BillsService {
     @InjectRepository(Bill)
     private billsRepository: Repository<Bill>,
 
-    @InjectRepository(UserOrder)
-    private userOrderRepository: Repository<UserOrder>,
+    @InjectRepository(Order)
+    private orderRepository: Repository<Order>,
 
-    @InjectRepository(OrderMenu)
-    private orderMenuRepository: Repository<OrderMenu>,
+    @InjectRepository(orderitem)
+    private orderitemRepository: Repository<orderitem>,
 
     @InjectRepository(Menu)
     private menuRepository: Repository<Menu>,
   ) {}
 
   async createBill(createBillDto: CreateBillDto): Promise<any> {
+    const { orderId } = createBillDto;
 
-    const { customerId } = createBillDto;
-
-    // Fetch orders for the customer
-    const userOrders = await this.userOrderRepository.find({
-      where: { customerId },
+    // Fetch order items for the provided orderId
+    const userOrderItems = await this.orderitemRepository.find({
+      where: { orderId },
     });
+
+    if (userOrderItems.length === 0) {
+      throw new Error('No items found for this order.');
+    }
 
     let totalAmount = 0;
     const eatenMenus = [];
 
-    for (const order of userOrders) {
-      // Fetch order menu details for each orderId
-      const orderMenus = await this.orderMenuRepository.find({
-        where: { orderid: order.orderid },
+    // Loop through the order items and calculate total amount
+    for (const item of userOrderItems) {
+      const menu = await this.menuRepository.findOne({
+        where: { itemId: item.itemId },
       });
 
-      for (const orderMenu of orderMenus) {
-        const menu = await this.menuRepository.findOne({
-          where: { menuid: orderMenu.menuid },
-        });
-        if (menu) {
-          // Calculate total amount
-          totalAmount += menu.price * orderMenu.quantity;
+      if (menu) {
+        // Calculate total amount based on price and quantity
+        const itemTotal = menu.price * item.quantity;
+        totalAmount += itemTotal;
 
-          // Store the menu item details
-          eatenMenus.push({
-            menuName: menu.menuname,
-            menuCategory: menu.menucategory,
-            price: menu.price,
-            quantity: orderMenu.quantity,
-            totalPrice: menu.price * orderMenu.quantity,
-          });
-        }
+        // Store the menu item details
+        eatenMenus.push({
+          menuName: menu.itemname,
+          menuCategory: menu.itemcategory,
+          price: menu.price,
+          quantity: item.quantity,
+          totalPrice: itemTotal,
+        });
       }
     }
 
     // Create the new bill
     const newBill = this.billsRepository.create({
-      customer: { customerId }, // Assuming Customer entity has a customerId field
+      order: { orderId }, // Assuming Order entity has an orderId field
       amount: totalAmount,
+
       payment: 'cash', // Default payment method or adjust as needed
     });
 
+    // Save the bill in the database
     const savedBill = await this.billsRepository.save(newBill);
 
-    // Return the custom object
+    // Return the custom object with bill details and the calculated amount
     return {
-      bill: savedBill,    // Instead of 'savedBill' on its own, place it in an object as 'bill'
-      eatenMenus,         // Include the list of menus eaten
-      totalAmount,        // Include the total calculated amount
+      bill: savedBill,
+      eatenMenus,
+      totalAmount,
     };
   }
 }

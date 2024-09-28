@@ -1,6 +1,6 @@
 import { IsString, IsOptional, IsPhoneNumber, IsDate, IsUUID } from 'class-validator';
 import { Column } from 'typeorm';
-import { Role } from 'src/authroization/roles.decorator';
+// import { Role} from 'src/authroization/roles.decorator';
 import { Roles } from 'src/authroization/roles.enum';
 
 export class CreateUserDto {
@@ -26,16 +26,4 @@ export class CreateUserDto {
 
   @IsPhoneNumber(null) // Use specific locale if needed
   contactNumber: string;
-
-  @IsDate()
-  @IsOptional() // Optional, as it may be auto-generated
-  deletedAt?: Date;
-
-  @IsDate()
-  @IsOptional() // Optional, as it may be auto-generated
-  createdAt?: Date;
-
-  @IsDate()
-  @IsOptional() // Optional, as it may be auto-generated
-  updatedAt?: Date;
 }

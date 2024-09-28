@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, JoinColumn,OneToMany, ManyToOne, Column,UpdateDateColumn,CreateDateColumn,DeleteDateColumn, OneToOne } from 'typeorm';
 import { user } from '../../users/entities/user.entity';
-import { UserOrder } from 'src/DatabaseEntity/userorder/entities/userorder.entity';
+import { Order } from 'src/DatabaseEntity/order/entities/order.entity';
 import { DinnerTable } from 'src/DatabaseEntity/dinnertables/entities/dinnertable.entity';
 import { Bill } from 'src/DatabaseEntity/bills/entities/bill.entity';
 
@@ -28,8 +28,8 @@ export class Customer {
   @Column() 
   userId: number;
 
-  @OneToMany(() => UserOrder, userOrder => userOrder.customer)
-  orders: UserOrder[];
+  @OneToMany(() => Order, Order => Order.customer)
+  orders: Order[];
 
   @OneToMany(() => Bill, bill => bill.customer)
   bills: Bill[]

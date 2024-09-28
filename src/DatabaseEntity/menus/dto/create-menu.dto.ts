@@ -3,11 +3,11 @@ import { IsEnum, IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-valida
 export class CreateMenuDto {
     @IsNotEmpty()
     @IsString()
-    menuname: string;
+    itemname: string;
 
     @IsNotEmpty()
     @IsEnum(['Veg', 'Non-Veg'])
-    menuCategory: 'Veg' | 'Non-Veg';
+    itemCategory: 'Veg' | 'Non-Veg';
 
     @IsNotEmpty()
     @IsNumber()

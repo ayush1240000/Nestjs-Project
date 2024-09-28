@@ -10,15 +10,15 @@ import { Employee } from '../employee/entities/employee.entity';
 import { DinnerTable } from '../dinnertables/entities/dinnertable.entity';
 import { Menu } from '../menus/entities/menu.entity';
 import { BillsService } from './bills.service';
-import { UserorderModule } from '../userorder/userorder.module';
-import { OrdermenuModule } from '../ordermenu/ordermenu.module';
+import { OrderModule } from '../order/order.module';
+import { OrderitemModule } from '../orderitem/orderitem.module';
 import { BillsController } from './bills.controller';
-import { UserOrder } from '../userorder/entities/userorder.entity';
-import { OrderMenu } from '../ordermenu/entities/ordermenu.entity';
+import { Order } from '../order/entities/order.entity';
+import { orderitem } from '../orderitem/entities/orderitem.entity';
 
 @Module({
-  imports :[TypeOrmModule.forFeature([Bill,Customer,Menu,DinnerTable,Employee,UserOrder,OrderMenu]),
-CustomersModule,EmployeeModule,DinnertablesModule ,UserorderModule,OrdermenuModule],
+  imports :[TypeOrmModule.forFeature([Bill,Customer,Menu,DinnerTable,Employee,Order,orderitem]),
+CustomersModule,EmployeeModule,DinnertablesModule ,OrderModule,OrderitemModule],
   controllers: [BillsController],
   providers: [BillsService],
 })

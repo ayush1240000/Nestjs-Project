@@ -2,7 +2,7 @@
 
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeepPartial, EntityManager } from 'typeorm';
+import { Repository, DeepPartial, EntityManager, Like } from 'typeorm';
 import { user } from './entities/user.entity'; 
 import { TransactionService } from 'src/Transaction/Transaction.service';
 import * as bcrypt from 'bcryptjs';
@@ -24,12 +24,47 @@ export class usersService {
     });
   }
 
-  async findAll(page: number , limit: number): Promise<{ data: user[], total: number, page: number, limit: number }> {
+  // async findAll(page: number , limit: number): Promise<{ data: user[], total: number, page: number, limit: number }> {
+  //   const [result, total] = await this.userRepository.findAndCount({
+  //     skip: (page - 1) * limit,
+  //     take: limit,
+  //   });
+
+  //   return {
+  //     data: result,
+  //     total,
+  //     page,
+  //     limit,
+  //   };
+  // }
+
+  async findAll(
+    page: number, 
+    limit: number, 
+    search: string,       // Search query string
+    sortField: string,    // Field to sort by
+    sortOrder: 'ASC' | 'DESC' // Sorting order
+  ): Promise<{ data: user[], total: number, page: number, limit: number }> {
+    // Define conditions for searching
+    const whereCondition = search 
+      ? [
+          { name: Like(`%${search}%`) },    // Example of searching by 'name' field
+          { email: Like(`%${search}%`) },   // Example of searching by 'email' field
+        ]
+      : {};
+  
+    // Handle sorting: if no sort field is provided, default to 'createdAt'
+    const orderCondition = sortField 
+      ? { [sortField]: sortOrder } 
+      : { createdAt: 'DESC' }; // Default sorting by 'createdAt'
+  
     const [result, total] = await this.userRepository.findAndCount({
+      where: whereCondition,
       skip: (page - 1) * limit,
       take: limit,
+      // order: orderCondition,
     });
-
+  
     return {
       data: result,
       total,
@@ -37,6 +72,7 @@ export class usersService {
       limit,
     };
   }
+  
 
 
   async findOne(id: number): Promise<user> {

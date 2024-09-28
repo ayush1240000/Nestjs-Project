@@ -1,4 +1,4 @@
-import { OrderMenu } from 'src/DatabaseEntity/ordermenu/entities/ordermenu.entity';
+import { orderitem } from 'src/DatabaseEntity/orderitem/entities/orderitem.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 export enum MenuCategory {
@@ -9,22 +9,22 @@ export enum MenuCategory {
 @Entity('menu')
 export class Menu {
   @PrimaryGeneratedColumn('increment')
-  menuid: number;
+  itemId: number;
 
   @Column()
-  menuname: string;
+  itemname: string;
 
   @Column({
     type: 'enum',
     enum: MenuCategory,
   })
-  menucategory: MenuCategory;
+  itemcategory: MenuCategory;
 
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @OneToMany(() => OrderMenu, orderMenu => orderMenu.menu)
-  orderMenus: OrderMenu[];
+  @OneToMany(() => orderitem, orderitem => orderitem.menu)
+  orderMenus: orderitem[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

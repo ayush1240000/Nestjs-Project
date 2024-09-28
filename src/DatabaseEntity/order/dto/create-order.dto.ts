@@ -2,8 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, Up
 import { Customer } from '../../customers/entities/customer.entity'; // Adjust the path to your Customer entity
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-@Entity('userOrder') // The table name in the database
-export class CreateUserorderDto {
+@Entity('order') // The table name in the database
+export class CreateOrderDto {
   @PrimaryGeneratedColumn()
   orderId: number;
 

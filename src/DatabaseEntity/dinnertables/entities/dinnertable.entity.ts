@@ -11,7 +11,7 @@ export enum TableStatus {
 @Entity('dinnertable')
 export class DinnerTable {
   @PrimaryGeneratedColumn('increment')
-  tableno: number;
+  tableNo: number;
 
   @Column({
     type: 'enum',

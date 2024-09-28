@@ -10,7 +10,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: 'your_jwt_secret_key',
+      secretOrKey: 'Ayush12',
     });
   }
 
@@ -19,6 +19,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw error('User not found');
     }
-    return { userId: payload.sub, username: payload.username , roles: payload.role};
+    return { userId: payload.sub, username: payload.username , role: payload.role};
   }
 }

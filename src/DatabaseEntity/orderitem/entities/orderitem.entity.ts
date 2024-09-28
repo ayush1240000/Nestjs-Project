@@ -1,25 +1,25 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
-import { UserOrder } from '../../userorder/entities/userorder.entity';
+import { Order } from '../../order/entities/order.entity';
 import { Menu } from '../../menus/entities/menu.entity';
 
-@Entity('ordermenu')
-export class OrderMenu {
+@Entity('orderitem')
+export class orderitem {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => UserOrder, userOrder => userOrder.orderid, {  eager: false , onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'orderid' })
-  order: UserOrder;
+  @ManyToOne(() => Order, Order => Order.orderId, {  eager: false , onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'orderId' })
+  order: Order;
 
-  @ManyToOne(() => Menu, menu => menu.menuid, {  eager: true,onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'menuid' })
+  @ManyToOne(() => Menu, menu => menu.itemId, {  onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'itemId' })
   menu: Menu;
 
   @Column()
-  orderid: number;
+  orderId: number;
   T
   @Column()
-  menuid: number;
+  itemId: number;
 
   @Column()
   quantity: number;

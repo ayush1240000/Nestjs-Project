@@ -1,13 +1,13 @@
 import { IsInt, IsNotEmpty } from 'class-validator';
 
-export class CreateOrdermenuDto {
+export class CreateOrderitemDto {
   @IsInt()
   @IsNotEmpty()
-  orderid: number;
+  orderId: number;
 
   @IsInt()
   @IsNotEmpty()
-  menuid: number;
+  itemId: number;
 
   @IsInt()
   @IsNotEmpty()

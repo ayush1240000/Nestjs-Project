@@ -9,13 +9,13 @@ import { Employee } from './DatabaseEntity/employee/entities/employee.entity';
 import { Customer } from './DatabaseEntity/customers/entities/customer.entity';
 import { AuthModule } from './authentication/auth.module';
 import { MenusModule } from './DatabaseEntity/menus/menus.module';
-import { UserorderModule } from './DatabaseEntity/userorder/userorder.module';
-import { OrdermenuModule } from './DatabaseEntity/ordermenu/ordermenu.module';
+import { OrderModule } from './DatabaseEntity/order/order.module';
+import { OrderitemModule } from './DatabaseEntity/orderitem/orderitem.module';
 import { DinnertablesModule } from './DatabaseEntity/dinnertables/dinnertables.module';
 import { BillsModule } from './DatabaseEntity/bills/bills.module';
 import { Menu } from './DatabaseEntity/menus/entities/menu.entity';
-import { OrderMenu } from './DatabaseEntity/ordermenu/entities/ordermenu.entity';
-import { UserOrder } from './DatabaseEntity/userorder/entities/userorder.entity';
+import { orderitem } from './DatabaseEntity/orderitem/entities/orderitem.entity';
+import { Order } from './DatabaseEntity/order/entities/order.entity';
 import { DinnerTable } from './DatabaseEntity/dinnertables/entities/dinnertable.entity';
 import { Bill } from './DatabaseEntity/bills/entities/bill.entity';
 import { TransactionService } from './Transaction/Transaction.service';
@@ -29,10 +29,10 @@ import { TransactionService } from './Transaction/Transaction.service';
       port: 3306,
       username: 'root',
       password: 'Ayush@1240',
-      database: 'finaldb',
-      entities: [user, Customer,Employee,Menu,OrderMenu,UserOrder,DinnerTable,Bill],  
+      database: 'newdb',
+      entities: [user, Customer,Employee,Menu,Order,orderitem,DinnerTable,Bill],  
       synchronize: true, 
-    }),UsersModule, CustomersModule,EmployeeModule,AuthModule, MenusModule, UserorderModule, OrdermenuModule, DinnertablesModule, BillsModule ],
+    }),UsersModule, CustomersModule,EmployeeModule,AuthModule, MenusModule, OrderModule, OrderitemModule, DinnertablesModule, BillsModule ],
   controllers: [],
   providers: [TransactionService],
 })

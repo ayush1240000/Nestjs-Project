@@ -25,7 +25,7 @@ export class MenuService {
 
     // Find a single menu item by ID
     async findOne(id: number): Promise<Menu> {
-        const menuItem = await this.menuRepository.findOne({ where: { menuid: id } });
+        const menuItem = await this.menuRepository.findOne({ where: { itemId: id } });
         if (!menuItem) {
             throw new NotFoundException(`Menu item with ID ${id} not found`);
         }

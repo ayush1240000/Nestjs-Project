@@ -2,10 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { Role } from 'src/authroization/roles.decorator';
-import { Roles } from 'src/authroization/roles.enum';
-import { JwtAuthGuard } from 'src/authentication/jwt-auth.guard';
-import { RolesGuard } from 'src/authroization/roles.guard';
+// import { Role } from 'src/authroization/roles.decorator';
+// import { Role } from 'src/authroization/roles.enum';
+// import { JwtAuthGuard } from 'src/authentication/jwt-auth.guard';
+// import { RolesGuard } from 'src/authroization/roles.guard';
 
 @Controller('customers')
 export class CustomersController {

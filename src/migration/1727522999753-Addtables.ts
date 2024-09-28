@@ -19,7 +19,7 @@ export class AddTables1727163310977 implements MigrationInterface {
                 \`updatedAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
             );
         `);
-
+            
         await queryRunner.query(`
             CREATE TABLE \`customers\` (
                 \`customerId\` INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,9 +46,9 @@ export class AddTables1727163310977 implements MigrationInterface {
 
         await queryRunner.query(`
             CREATE TABLE \`menu\` (
-                \`menuId\` INT AUTO_INCREMENT PRIMARY KEY,
-                \`menuName\` VARCHAR(255) NOT NULL,
-                \`menuCategory\` ENUM('Veg', 'Non-Veg') NOT NULL,
+                \`itemId\` INT AUTO_INCREMENT PRIMARY KEY,
+                \`itemName\` VARCHAR(255) NOT NULL,
+                \`itemCategory\` ENUM('Veg', 'Non-Veg') NOT NULL,
                 \`price\` DECIMAL(10, 2) NOT NULL,
                 \`createdAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 \`updatedAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
@@ -57,7 +57,7 @@ export class AddTables1727163310977 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
-            CREATE TABLE \`userOrder\` (
+            CREATE TABLE \`order\` (
                 \`orderId\` INT AUTO_INCREMENT PRIMARY KEY,
                 \`customerId\` INT NOT NULL,
                 \`createdAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -68,16 +68,16 @@ export class AddTables1727163310977 implements MigrationInterface {
         `);
 
         await queryRunner.query(`
-            CREATE TABLE \`orderMenu\` (
+            CREATE TABLE \`orderitem\` (
                 \`id\` INT AUTO_INCREMENT PRIMARY KEY,
                 \`orderId\` INT NOT NULL,
-                \`menuId\` INT NOT NULL,
+                \`itemId\` INT NOT NULL,
                 \`quantity\` INT NOT NULL,
                 \`createdAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 \`updatedAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
                 \`deletedAt\` TIMESTAMP NULL,
-                FOREIGN KEY (\`orderId\`) REFERENCES \`userOrder\`(\`orderId\`) ON DELETE CASCADE,
-                FOREIGN KEY (\`menuId\`) REFERENCES \`menu\`(\`menuId\`) ON DELETE CASCADE
+                FOREIGN KEY (\`orderId\`) REFERENCES \`order\`(\`orderId\`) ON DELETE CASCADE,
+                FOREIGN KEY (\`itemId\`) REFERENCES \`menu\`(\`itemId\`) ON DELETE CASCADE
             );
         `);
 
@@ -101,6 +101,7 @@ export class AddTables1727163310977 implements MigrationInterface {
                 \`customerId\` INT NULL,
                 \`employeeId\` INT NULL,
                 \`tableNo\` INT NULL,
+                \`orderId\` INT NULL,
                 \`amount\` DECIMAL(10, 2) NOT NULL,
                 \`payment\` ENUM('Cash', 'OnlinePayment') NOT NULL,
                 \`createdAt\` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -108,7 +109,8 @@ export class AddTables1727163310977 implements MigrationInterface {
                 \`deletedAt\` TIMESTAMP NULL,
                 FOREIGN KEY (\`customerId\`) REFERENCES \`customers\`(\`customerId\`) ON DELETE SET NULL,
                 FOREIGN KEY (\`employeeId\`) REFERENCES \`employee\`(\`employeeId\`) ON DELETE SET NULL,
-                FOREIGN KEY (\`tableNo\`) REFERENCES \`dinnerTable\`(\`tableNo\`) ON DELETE SET NULL
+                FOREIGN KEY (\`tableNo\`) REFERENCES \`dinnerTable\`(\`tableNo\`) ON DELETE SET NULL,
+                FOREIGN KEY (\`orderId\`) REFERENCES \`order\`(\`orderId\`) ON DELETE CASCADE
             );
         `);
     }
@@ -116,11 +118,12 @@ export class AddTables1727163310977 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`DROP TABLE \`bill\`;`);
         await queryRunner.query(`DROP TABLE \`dinnerTable\`;`);
-        await queryRunner.query(`DROP TABLE \`orderMenu\`;`);
-        await queryRunner.query(`DROP TABLE \`userOrder\`;`);
+        await queryRunner.query(`DROP TABLE \`orderitem\`;`);
+        await queryRunner.query(`DROP TABLE \`order\`;`);
         await queryRunner.query(`DROP TABLE \`menu\`;`);
         await queryRunner.query(`DROP TABLE \`employee\`;`);
         await queryRunner.query(`DROP TABLE \`customers\`;`);
         await queryRunner.query(`DROP TABLE \`users\`;`);
     }
 }
+

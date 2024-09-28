@@ -28,9 +28,12 @@ export class DinnertablesService {
     return await this.dinnerTableRepository.find({ relations: ['customer'] });
   }
 
+
+
+
   // Retrieve a specific DinnerTable by its ID
   async findOne(id: number): Promise<DinnerTable> {
-    const dinnerTable = await this.dinnerTableRepository.findOne({ where: { tableno: id }, relations: ['customer', 'employee'] });
+    const dinnerTable = await this.dinnerTableRepository.findOne({ where: { tableNo: id }, relations: ['customer', 'employee'] });
     if (!dinnerTable) {
       throw new NotFoundException(`DinnerTable with ID ${id} not found`);
     }

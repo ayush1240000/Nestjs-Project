@@ -1,19 +1,23 @@
 
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, DeleteDateColumn, OneToMany, OneToOne } from 'typeorm';
 import { Customer } from '../../customers/entities/customer.entity';
-import { OrderMenu } from 'src/DatabaseEntity/ordermenu/entities/ordermenu.entity';
+import { orderitem } from 'src/DatabaseEntity/orderitem/entities/orderitem.entity';
+import { Bill } from 'src/DatabaseEntity/bills/entities/bill.entity';
 
-@Entity('userorder')
-export class UserOrder {
+@Entity('order')
+export class Order {
   @PrimaryGeneratedColumn('increment')
-  orderid: number;
+  orderId: number;
 
   @ManyToOne(() => Customer, customer => customer.orders, {  eager : false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'customerId' })
   customer: Customer;
   
-  @OneToMany(() => OrderMenu, orderMenu => orderMenu.order,{  eager : true, onDelete: 'CASCADE' })
-  orderMenus: OrderMenu[];
+  @OneToOne(() => Bill, (bill) => bill.order)
+  bill: Bill[];
+
+  @OneToMany(() => orderitem, orderitem => orderitem.order,{   onDelete: 'CASCADE' })
+  orderitem: orderitem[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

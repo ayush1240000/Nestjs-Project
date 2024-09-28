@@ -6,7 +6,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../../authentication/jwt-auth.guard';
 import { RolesGuard } from 'src/authroization/roles.guard';
 import { Roles } from 'src/authroization/roles.enum';
-import { Role } from 'src/authroization/roles.decorator';
+// import { Role } from 'src/authroization/roles.decorator';
+import { query } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -22,13 +23,16 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   async findAll(
     @Query('page') page: number = 1,
-    @Query('limit') limit: number = 2
+    @Query('limit') limit: number = 2,
+    @Query('sortOrder') sortOrder :  'ASC',
+    @Query('sortField') sortField : string = 'fname',
+    @Query('search') search : string = ''
+    
   ) {
-    return this.usersService.findAll(page, limit);
+    return this.usersService.findAll(page, limit,search,sortField,sortOrder);
   }
   
-  
- 
+
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
