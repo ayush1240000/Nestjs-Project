@@ -45,10 +45,6 @@ export class CreateBillDto {
   orderId: number; 
 // Customer ID to fetch orders and create the bill
 
-// @IsNotEmpty()
-// @IsNumber()
-// customerId: number; 
-
 
 
 }

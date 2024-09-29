@@ -15,11 +15,12 @@ import { OrderitemModule } from '../orderitem/orderitem.module';
 import { BillsController } from './bills.controller';
 import { Order } from '../order/entities/order.entity';
 import { orderitem } from '../orderitem/entities/orderitem.entity';
+import { DinnertablesService } from '../dinnertables/dinnertables.service';
 
 @Module({
   imports :[TypeOrmModule.forFeature([Bill,Customer,Menu,DinnerTable,Employee,Order,orderitem]),
 CustomersModule,EmployeeModule,DinnertablesModule ,OrderModule,OrderitemModule],
   controllers: [BillsController],
-  providers: [BillsService],
+  providers: [BillsService,DinnertablesService],
 })
 export class BillsModule {}

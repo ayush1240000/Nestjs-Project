@@ -8,6 +8,6 @@ import { DinnerTable } from './entities/dinnertable.entity';
   imports :[TypeOrmModule.forFeature([DinnerTable])],
   controllers: [DinnertablesController],
   providers: [DinnertablesService],
-  exports :[TypeOrmModule]
+  exports :[TypeOrmModule,DinnertablesService]
 })
 export class DinnertablesModule {}

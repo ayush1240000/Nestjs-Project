@@ -21,6 +21,11 @@ export class DinnertablesController {
   findDinnerTableByCustomer() {
     return this.dinnertablesService.findDinnerTableByCustomer();
   }
+  @Get('/customer/:customerId')
+  findDinnerTableByCustomerid(@Param('customerId') customerId :number) {
+    return this.dinnertablesService.findDinnerTableByCustomerid(customerId);
+  }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {
