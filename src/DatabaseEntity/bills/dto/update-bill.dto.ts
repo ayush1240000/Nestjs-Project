@@ -1,7 +1,8 @@
-import { IsNumber } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class UpdateBillDto {
-    @IsNumber()
-    amount: number;
+  @IsNotEmpty()
+  @IsNumber()
+  orderId: number;
   }
   
